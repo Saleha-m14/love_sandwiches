@@ -27,9 +27,11 @@ def get_sales_data():
     return sales_data
 def validate_data(values):
     """
-    Inside the try, convert all string values to integer.
-    raises ValueError if the string cannot be conveted to integer.
-    or if there aren't exactly six values
+    Get sales figure input from the user.
+    Run a while loop that collect a valid string of data from the user
+    via the terminal, which must be a string of six numbers
+    seperated by commas. The loop will repeatedly request data
+    until the data is valid.
     """
     try:
         [int(value) for value in values]
@@ -43,6 +45,18 @@ def validate_data(values):
         return False
     return True
 
+def update_sales_worksheet(data):
+    """
+    Update sales worksheet, add new row with the list data 
+    provided.
+    """
+    print("Update sales worksheet...\n")
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully,\n")
 
 data = get_sales_data()
+sales_data = [int(num) for num in data]
+update_sales_worksheet(sales_data)
+
 
